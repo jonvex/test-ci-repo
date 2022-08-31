@@ -8,9 +8,15 @@ jobs:
   check-compliance:
     runs-on: ubuntu-latest
     steps:
-      - name: check for JIRA title
-        run: [[ $prTitle  =~ (\\[HUDI\-[0-9]{4,}\\]|\\[MINOR\\]) ]]
-        env:
-          prTitle: ${{ github.event.pull_request.title }}
+      - name: Check Title
+        id: check-title
+        run: |
+          if [[ ${{ github.event.pull_request.title }} =~ (\\[HUDI\-[0-9]{4,}\\]|\\[MINOR\\]) ]]; then
+            echo ::set-output name=match::true
+          fi
+      - name: Report Compliance
+        if: steps.check-title.outputs.match == 'true'
+        run: echo "This works
+      
                                                                 
                                                                              
