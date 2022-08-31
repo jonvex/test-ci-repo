@@ -9,4 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: check for JIRA title
-        run: [[ $github.event.pull_request.title  =~ (\\[HUDI\-[0-9]{4,}\\]|\\[MINOR\\]) ]] 
+        run: [[ $prTitle  =~ (\\[HUDI\-[0-9]{4,}\\]|\\[MINOR\\]) ]]
+        env:
+          prTitle: ${{ github.event.pull_request.title }}
+                                                                
+                                                                             
