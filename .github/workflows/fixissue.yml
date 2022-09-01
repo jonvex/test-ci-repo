@@ -14,6 +14,9 @@ jobs:
   check-template:
     runs-on: ubuntu-latest
     steps:
+      - name: Set the environ var
+        env:
+          REQUEST_BODY: ${{ github.event.pull_request.body }}
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
       - uses: jannekem/run-python-script-action@v1
@@ -25,8 +28,6 @@ jobs:
             body = os.getenv('REQUEST_BODY')
             print("hello world")
             print(body)
-          env:
-            REQUEST_BODY: ${{ github.event.pull_request.body }}
             
       - name: Print stdout
         run: |
