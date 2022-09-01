@@ -62,7 +62,7 @@ jobs:
                   #if it is this line then they never chose a risk level
                   if line == "**Risk level: none | low | medium | high**":
                     error("risk level not chosen ")
-                    exit(-1)
+                    exit()
 
                   # an explanation is not required for none or low
                   if "none" in line or "low" in line:
