@@ -24,7 +24,7 @@ jobs:
             import os
             body = os.getenv('REQUEST_BODY')
             print("hello world")
-            print(f"this is the body {}")
+            print(f"this is the body {body}")
             
       - name: Print stdout
         run: |
