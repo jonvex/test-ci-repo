@@ -16,7 +16,6 @@ jobs:
     env:
       REQUEST_BODY: ${{ github.event.pull_request.body }}
     steps:
-      - name: Set the environ var
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
       - uses: jannekem/run-python-script-action@v1
