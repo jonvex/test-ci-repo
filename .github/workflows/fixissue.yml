@@ -44,6 +44,8 @@ jobs:
                   else: 
                     error("duplicate \"### Change Logs\" ")
                     raise Exception("46")
+                    a = []
+                    a[10]
                     exit(-1)
 
                 # make sure there is additional text before looking for risk level   
@@ -61,11 +63,15 @@ jobs:
                   if found:
                     error("duplicate line starting with \"**Risk level:\" ")
                     raise Exception("63")
+                    a = []
+                    a[10]
                     exit(-1)
                   #if it is this line then they never chose a risk level
                   if line == "**Risk level: none | low | medium | high**":
                     error("risk level not chosen ")
                     raise Exception("68")
+                    a = []
+                    a[10]
                     exit(-1)
 
                   # an explanation is not required for none or low
@@ -81,6 +87,8 @@ jobs:
                     #they put something weird in for risk level
                     error("invalid choice for risk level")
                     raise Exception("83")
+                    a = []
+                    a[10]
                     exit(-1)
                 if found:
                   # this is the default so we want to see different text that is actually explaining things
@@ -96,6 +104,8 @@ jobs:
             #we didn't exit(0) so something is wrong with the template
             error("template is not filled out properly")
             raise Exception("98")
+            a = []
+            a[10]
             exit(-1)
             
       - name: Print stdout
