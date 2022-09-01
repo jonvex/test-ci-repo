@@ -21,16 +21,17 @@ jobs:
         with:
           fail-on-error: false
           script: |
-            print(get_input("BODY"))
+            import os
+            print("hello world")
             
       - name: Print stdout
         run: |
           printenv "SCRIPT_STDOUT"
- #         printenv "SCRIPT_STDERR"
+#          printenv "SCRIPT_STDERR"
         env:
           SCRIPT_STDOUT: ${{ steps.script.outputs.stdout }}
           SCRIPT_STDERR: ${{ steps.script.outputs.stderr }} 
-          INPUT_BODY: ${{ github.event.pull_request.body }}
+          REQUEST_BODY: ${{ github.event.pull_request.body }}
 
 
 
