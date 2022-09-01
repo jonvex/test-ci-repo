@@ -24,7 +24,9 @@ jobs:
             import os
             body = os.getenv('REQUEST_BODY')
             print("hello world")
-            print(os.environ)
+            print(body)
+          env:
+            REQUEST_BODY: ${{ github.event.pull_request.body }}
             
       - name: Print stdout
         run: |
@@ -33,7 +35,7 @@ jobs:
         env:
           SCRIPT_STDOUT: ${{ steps.script.outputs.stdout }}
           SCRIPT_STDERR: ${{ steps.script.outputs.stderr }} 
-          REQUEST_BODY: ${{ github.event.pull_request.body }}
+         
 
 
 
