@@ -14,13 +14,27 @@ jobs:
   check-template:
     runs-on: ubuntu-latest
     steps:
-      - uses: fabiankoestring/body-regex-validator-action@master
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - uses: jannekem/run-python-script-action@v1
+        id: script
+        with:
+          fail-on-error: false
+          script: |
+            import os
+            print(os.getenv('REQUEST_BODY'))
+            a = []
+            a[10]
+            
+      - name: Print errors
+        if: steps.script.outputs.error == 'true'
+        run: |
+          printenv "SCRIPT_STDOUT"
+          printenv "SCRIPT_STDERR"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PULL_REQUEST_PATTERN: '^(.*Change Logs.*Impact.*Risk level.*)$'
-          PULL_REQUEST_COMMENT: 'This is my pr comment template.'
-          #ISSUE_PATTERN: '^(.*Description.*Behavior.*)$'
-          #ISSUE_COMMENT: 'This is my issue comment template.'
+          SCRIPT_STDOUT: ${{ steps.script.outputs.stdout }}
+          SCRIPT_STDERR: ${{ steps.script.outputs.stderr }} 
+          REQUEST_BODY: ${{ github.event.pull_request.body }}
 
 
 
