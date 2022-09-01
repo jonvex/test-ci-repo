@@ -25,22 +25,77 @@ jobs:
           script: |
             import os
             body = os.getenv('REQUEST_BODY')
-            print("hello world")
-            print(body)
+            state = "CHANGELOGS"
+            found = False
+            for line in body.splitlines():
+              # ignore empty lines
+              if len(line) == 0:
+                  continue
+
+              if state == "CHANGELOGS":
+
+                # see if it matches template
+                if line == "### Change Logs":
+
+                  # we found it so now we need to make sure there is additional text
+                  if !found:
+                    found = True
+                    continue
+                  else: 
+                    quit(-1)
+
+                # make sure there is additional text before looking for risk level   
+                if found:
+
+                  # this is the default so we want to see different text that is actually explaining things
+                  if line != "_Describe context and summary for this change. Highlight if any code was copied._":
+                    state = "RISKLEVEL"
+                    found = False
+                    continue
+
+              elif state == "RISKLEVEL":
+                if line.startswith("**Risk level:"):
+                  #if we already saw this then they shouldn't have it again
+                  if found:
+                    quit(-1)
+                  #if it is this line then they never chose a risk level
+                  if line == "**Risk level: none | low | medium | high**":
+                    quit(-1)
+
+                  # an explanation is not required for none or low
+                  if "none" in line or "low" in line:
+                    state = "CHECKLIST"
+                    found = False
+                    continue
+                  elif "medium" in line or "high" in line:
+                    # an explanation is required
+                    found = True
+                    continue
+                  else:
+                    #they put something weird in for risk level
+                    quit(-1)
+                if found:
+                  # this is the default so we want to see different text that is actually explaining things
+                  if line != "_Choose one. If medium or high, explain what verification was done to mitigate the risks._":
+                    state = "CHECKLIST"
+                    found = False
+                    continue
+              elif state == "CHECKLIST":
+                #all parts of template are found
+                if line == "### Contributor's checklist":
+                  #this has passed the check
+                  quit(0)
+            #we didn't quit(0) so something is wrong with the template
+            quit(-1)
             
       - name: Print stdout
         run: |
           printenv "SCRIPT_STDOUT"
-#          printenv "SCRIPT_STDERR"
+          printenv "SCRIPT_STDERR"
         env:
           SCRIPT_STDOUT: ${{ steps.script.outputs.stdout }}
           SCRIPT_STDERR: ${{ steps.script.outputs.stderr }} 
          
-
-
-
-#         [ ${{ github.event.pull_request.title }} = "third try [HUDI-1234]"]
-#[[ ${{ github.event.pull_request.title }} =~ (\\[HUDI\-[0-9]{4,}\\]|\\[MINOR\\]) ]] && echo it works
             
       
                                                                 
