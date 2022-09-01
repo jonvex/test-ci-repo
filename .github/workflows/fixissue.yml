@@ -6,10 +6,12 @@ on:
       - main
 jobs:
   check-compliance:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
-      - name: Check Title
-        id: check-title
+      - uses: actions/checkout@v1
+      - uses: dylanvann/check-pull-request-title@v1
+        with:
+          pattern: '(\\[HUDI\-[0-9]{4,}\\]|\\[MINOR\\])'
         run: |
          [ ${{ github.event.pull_request.title }} = "third try [HUDI-1234]"]
 #[[ ${{ github.event.pull_request.title }} =~ (\\[HUDI\-[0-9]{4,}\\]|\\[MINOR\\]) ]] && echo it works
