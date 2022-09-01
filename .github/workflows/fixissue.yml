@@ -43,7 +43,7 @@ jobs:
                     continue
                   else: 
                     error("duplicate \"### Change Logs\" ")
-                    quit(-1)
+                    exit(-1)
 
                 # make sure there is additional text before looking for risk level   
                 if found:
@@ -59,11 +59,11 @@ jobs:
                   #if we already saw this then they shouldn't have it again
                   if found:
                     error("duplicate line starting with \"**Risk level:\" ")
-                    quit(-1)
+                    exit(-1)
                   #if it is this line then they never chose a risk level
                   if line == "**Risk level: none | low | medium | high**":
                     error("risk level not chosen ")
-                    quit(-1)
+                    exit(-1)
 
                   # an explanation is not required for none or low
                   if "none" in line or "low" in line:
@@ -77,7 +77,7 @@ jobs:
                   else:
                     #they put something weird in for risk level
                     error("invalid choice for risk level")
-                    quit(-1)
+                    exit(-1)
                 if found:
                   # this is the default so we want to see different text that is actually explaining things
                   if line != "_Choose one. If medium or high, explain what verification was done to mitigate the risks._":
@@ -88,10 +88,10 @@ jobs:
                 #all parts of template are found
                 if line == "### Contributor's checklist":
                   #this has passed the check
-                  quit(0)
-            #we didn't quit(0) so something is wrong with the template
+                  exit(0)
+            #we didn't exit(0) so something is wrong with the template
             error("template is not filled out properly")
-            quit(-1)
+            exit(-1)
             
       - name: Print stdout
         run: |
