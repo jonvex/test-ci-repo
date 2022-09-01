@@ -22,7 +22,9 @@ jobs:
           fail-on-error: false
           script: |
             import os
+            body = os.getenv('REQUEST_BODY')
             print("hello world")
+            print(f"this is the body {}")
             
       - name: Print stdout
         run: |
