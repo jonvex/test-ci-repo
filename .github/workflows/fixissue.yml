@@ -21,8 +21,7 @@ jobs:
         with:
           fail-on-error: false
           script: |
-            import os
-            print(os.getenv('REQUEST_BODY'))
+            print(get_input("BODY"))
             
       - name: Print stdout
         run: |
@@ -31,7 +30,7 @@ jobs:
         env:
           SCRIPT_STDOUT: ${{ steps.script.outputs.stdout }}
           SCRIPT_STDERR: ${{ steps.script.outputs.stderr }} 
-          REQUEST_BODY: ${{ github.event.pull_request.body }}
+          INPUT_BODY: ${{ github.event.pull_request.body }}
 
 
 
