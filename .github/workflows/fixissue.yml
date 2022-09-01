@@ -23,14 +23,11 @@ jobs:
           script: |
             import os
             print(os.getenv('REQUEST_BODY'))
-            a = []
-            a[10]
             
-      - name: Print errors
-        if: steps.script.outputs.error == 'true'
+      - name: Print stdout
         run: |
           printenv "SCRIPT_STDOUT"
-          printenv "SCRIPT_STDERR"
+ #         printenv "SCRIPT_STDERR"
         env:
           SCRIPT_STDOUT: ${{ steps.script.outputs.stdout }}
           SCRIPT_STDERR: ${{ steps.script.outputs.stderr }} 
