@@ -109,7 +109,7 @@ jobs:
                   #this has passed the check
                   exit(0)
             #we didn't exit(0) so something is wrong with the template
-            error("template is not filled out properly")
+            error(f"template is not filled out properly DEBUG:(state: {state}, found: {found})")
             exit(-1)
             
       - name: Print stdout
