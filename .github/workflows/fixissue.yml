@@ -5,13 +5,25 @@ on:
     branches:
       - main
 jobs:
-  check-compliance:
-    runs-on: ubuntu-18.04
+  check-title:
+    runs-on: ubuntu-latest
     steps:
       - uses: deepakputhraya/action-pr-title@master
         with:
           regex: '(\[HUDI\-[0-9]{4,}\]|\[MINOR\])'
-#        run: |
+  check-template:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: fabiankoestring/body-regex-validator-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PULL_REQUEST_PATTERN: '^(.*Change Logs.*Impact.*Risk level.*)$'
+          PULL_REQUEST_COMMENT: 'This is my pr comment template.'
+          #ISSUE_PATTERN: '^(.*Description.*Behavior.*)$'
+          #ISSUE_COMMENT: 'This is my issue comment template.'
+
+
+
 #         [ ${{ github.event.pull_request.title }} = "third try [HUDI-1234]"]
 #[[ ${{ github.event.pull_request.title }} =~ (\\[HUDI\-[0-9]{4,}\\]|\\[MINOR\\]) ]] && echo it works
             
