@@ -11,6 +11,7 @@ jobs:
       - name: Check Title
         id: check-title
         run: |
+          echo ${{ github.event.pull_request.title }} 
           [[ ${{ github.event.pull_request.title }} =~ (\\[HUDI\-[0-9]{4,}\\]|\\[MINOR\\]) ]] && echo it works
             
       
