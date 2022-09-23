@@ -1,0 +1,12 @@
+name: idk
+
+on:
+  pull_request:
+    branches:
+    - main
+jobs:
+  check-this:
+    runs-on: ubuntu-latest
+    steps:
+      - name: idk what to name
+        run: echo "hi"
