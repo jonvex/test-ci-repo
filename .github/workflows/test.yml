@@ -1,0 +1,12 @@
+name: TestingThis
+
+on:
+	pull_request:
+		branches:
+		- main
+jobs:
+	check-this:
+		runs-on: ubuntu-latest
+		steps:
+		name: fake check
+		run: echo "hi"
