@@ -1,9 +1,13 @@
 name: idk
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
     branches:
-    - main
+      - main
+
 jobs:
   check-this:
     runs-on: ubuntu-latest
